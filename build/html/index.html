@@ -3,9 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <link rel="stylesheet" href="../css/style-b40c6c7e2a.css">
+    <style>
+        .yellow{
+            height:30px;
+            background:yellow;
+        }
+        .aqua{
+            height:30px;
+            background:aqua;
+        }
+    </style>
 </head>
-<body>
-    <div class="wrapper"></div>
+<body ng-app="myapp">
+<div ng-controller="ft">
+    <ul ng-init="names=['maodou','boge','dengwei']">
+        <li ng-bind="name"></li>
+        <li><input type="text" ng-model="data"></li>
+        <li>双向数据显示mvvm: <span ng-bind="data"></span></li>
+        <li ng-click="fn()">点击</li>
+        <li ng-bind="num"></li>
+        <li ng-click="showfn()">点击显示隐藏</li>
+        <li ng-show="boll">显示隐藏1</li>
+        <li ng-hide="boll">显示隐藏2</li>
+        <li ng-bind="datas"></li>
+        <li ng-repeat="item in names" ng-if="item=='boge'">
+            <span>{{item}}</span>
+        </li>
+        <li ng-if="true">测试if语句</li>
+        <li ng-if="false">测试if语句</li>
+        <li ng-class="{yellow:true,aqua:false}"></li>
+        <li ng-click="classfn()">点击切换颜色</li>
+        <li ng-class="{true:'aqua',false:'yellow'}[classBoll]"></li>
+        <li ng-bind="golobalName"></li>
+    </ul>
+</div>
+<span>下面为第二个控制器</span>
+<div ng-controller="sec">
+    <ul>
+        <li ng-bind="name"></li>
+        <li ng-bind="golobalName"></li>
+    </ul>
+</div>
 </body>
+<script src="../js/common/angular.js"></script>
+<script src="../js/common/jquery.js"></script>
+<script>
+    //    angular一些常用的基本指令
+    var app=angular.module('myapp',[])
+    app.controller('ft',function($scope){
+        $scope.name='zifeiyu'
+        $scope.data=''
+        $scope.num=1
+        $scope.fn=function(){
+            $scope.num++
+        }
+        $scope.boll=true
+        $scope.showfn=function(){
+            $scope.boll=!$scope.boll
+        }
+        $scope.classBoll=true
+        $scope.classfn=function(){
+            $scope.classBoll=!$scope.classBoll
+        }
+    })
+    app.controller('sec',function($scope){
+        $scope.name='tutu'
+    })
+    app.run(function($rootScope){
+        $rootScope.golobalName='tutubuzaijia'
+    })
+
+
+    //  jquery的延迟对象使用
+    //    deffer的对象对于每个要进行注册的操作创建一个deferred对象
+    //    resolve注册成功
+    //    reject注册失败
+    //    notify注册进行中的操作
+    //    when并行操作
+    //    done成功的回调(针对并行操作)
+    //    fail失败的回调(针对并行操作)
+    //    then串行操作
+    var wait=function(url){
+        var deffer= $.Deferred()
+        $.ajax({
+            url:url,
+            success:function(result){
+                deffer.resolve(result)
+            },
+            fail:function(){
+                deffer.reject('error')
+            }
+        })
+        return deffer.promise()
+    }
+    var fn1=wait('http://localhost:8000/index')
+    var fn2=wait("http://localhost:8000/smock")
+    var arr=[];
+    fn1.then(function(data){
+        arr.push(data)
+        return fn2
+    }).then(function(data){
+        arr.push(data)
+        console.log(arr)
+    })
+</script>
 </html>

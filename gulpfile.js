@@ -56,7 +56,8 @@ gulp.task('rev',function(){
 
 gulp.task('build',['jsmin','cssmin','rev'])
 gulp.task('html',function(){
-
+    //gulp.src('src/html/*.html')
+    //    .pipe(gulp.dest('build/html'))
 })
 
 //web的服务热启动
