@@ -96,8 +96,8 @@
         })
         return deffer.promise()
     }
-    var fn1=wait('http://localhost:8000/index')
-    var fn2=wait("http://localhost:8000/smock")
+    var fn1=wait('/index')
+    var fn2=wait("/smock")
     var arr=[];
     fn1.then(function(data){
         arr.push(data)

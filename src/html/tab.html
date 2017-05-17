@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link type="text/css" rel="stylesheet" href="../css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="../css/iconfont.css">
+    <link type="text/css" rel="stylesheet" href="../css/reset.css">
+    <link type="text/css" rel="stylesheet" href="../css/common.css">
+    <link type="text/css" rel="stylesheet" href="../css/style.css">
+    <link type="text/css" rel="stylesheet" href="../css/song.css">
+</head>
+<body ng-app="myApp">
+<div id="wrapper">
+    <header class="header">
+        <div class="left">
+            <i class="iconfont icon-k logo f16"></i>
+            <b>酷狗音乐</b>
+            <span>下载酷狗</span>
+        </div>
+        <div class="right">
+            <i class="iconfont icon-sou search f14"></i>
+        </div>
+    </header>
+    <nav class="nav">
+        <ul>
+            <li><a href="#/">新歌</a></li>
+            <li><a href="#/order">排行</a></li>
+            <li><a href="#/songlist">歌单</a></li>
+            <li><a href="#/singer">歌手</a></li>
+        </ul>
+    </nav>
+    <div ng-view></div>
+</div>
+
+</body>
+<script src="../js/common/angular.js"></script>
+<script src="../js/common/angular-route.js"></script>
+<script>
+    var app=angular.module('myApp',['ngRoute'])
+    //    首页
+    app.service('newsong',function(){
+        return [
+            {
+                song:'田馥甄-当你（live）'
+            },
+            {
+                song:'韩寒-在雨中【乘风破浪推广曲】'
+            },
+            {
+                song:'张杰-三生三世【三生三世十里桃花主题曲】'
+            },
+            {
+                song:'EXID-上下'
+            },
+            {
+                song:'魏晨-旅程'
+            },
+        ]
+    })
+    app.controller('newsong',function($scope,newsong){
+        $scope.newsong=newsong;
+    })
+    //    第二页
+    app.service('order',function(){
+        return [
+            {
+                src:'../images/photos/list1.jpg',
+                title:'酷狗飙升榜'
+            },
+            {
+                src:'../images/photos/list2.jpg',
+                title:'酷狗TOP500'
+            },
+            {
+                src:'../images/photos/list3.jpg',
+                title:'网络红歌榜'
+            },
+            {
+                src:'../images/photos/list4.jpg',
+                title:'DJ热歌榜'
+            }
+        ]
+    })
+    app.controller('order',function($scope,order){
+        $scope.order=order;
+    })
+    //    第三页
+    app.service('songlist',function(){
+        return [
+            {
+                src:'../images/photos/star1.jpg',
+                title:'梦想的声音  合辑'
+            },
+            {
+                src:'../images/photos/star2.jpg',
+                title:'围炉音乐会  合辑'
+            },
+            {
+                src:'../images/photos/star3.jpg',
+                title:'百首华语挚爱情歌 '
+            },
+            {
+                src:'../images/photos/star4.jpg',
+                title:'最是粤语情深处'
+            }
+        ]
+    })
+    app.controller('songlist',function($scope,songlist){
+        $scope.songlist=songlist;
+    })
+            .config(['$routeProvider', function($routeProvider){
+                $routeProvider
+                        .when('/',{
+                            templateUrl:'./views/newsong.html',
+                            controller:'newsong'
+                        })
+                        .when('/order',{templateUrl:'./views/order.html'})
+                        .when('/songlist',{templateUrl:'./views/songlist.html'})
+                        .when('/singer',{templateUrl:'./views/singer.html'})
+            }]);
+</script>
+</html>

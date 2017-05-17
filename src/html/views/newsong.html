@@ -1,0 +1,13 @@
+
+<div class="content" ng-app="myApp" ng-controller="newsong">
+    <div class="banner">
+        <ul>
+            <li><img src="../images/banner/banner.jpg" alt=""></li>
+        </ul>
+    </div>
+    <div id="newsong-list">
+        <ul ng-repeat="items in newsong">
+            <li><span>{{items.song}}</span><i class="iconfont icon-xiazai"></i></li>
+        </ul>
+    </div>
+</div>
